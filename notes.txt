@@ -1,0 +1,29 @@
+Elementi grafici:
+- Display surface: è la canva, la superficie su cui tutte le altre superfici vengono messe. Ce ne è una sola
+- Surface: sono le singole superfici che inserisco sulla display surface.
+Possono essere immagini (esempio la navicella, o il background), testo, box.. In pygame sono trattati tutti allo stesso modo come surface
+- Rectangle: sono rettangoli, che se creati a partire da una Surface, sono molto utili per il loro posizionamento sulla display surface.
+-> Creo la surface, creo il relativo Rectangle, imposto la posizione e poi alla Display Surface 'disegno' usando .blit dandogli la surface e il rectangle
+Modificando la posizione del Rectangle, modifico il movimento della Surface associata
+I Rectangle possono essere creati anche indipendentemente da una Surface, ed essere disegnati sulla Display Surface tramite pygame.draw.rect(...)
+
+# La classe Sprite
+Sprite è una classe che DEVE avere un rect e una surface
+Ci permette di gestire le meccaniche delle grafiche, delle posizioni, degli input e degli updateper ogni oggetto
+-> Ogni oggetto visibile deve essere uno Sprite
+Nell'__init__ delle classi che ereditano Sprite deve esserci:
+- la chiamata all'__init__ di Sprite: super().__init__()
+- una surface, chiamata self.image
+- un rect, chiamto self.rect
+Poi possono esserci altre cose, ma queste 3 sono obbligatorie o avremo errori
+
+Per 'disegnare' un oggetto sprite, lo devo inserire in un gruppo (pygame.sprite.Group). Sarà poi il gruppo a disegnare le sprite sulla surface
+Questo perché quando il numero di sprite da mostrare a schermo saranno tante, diventa difficoltoso gestirle una ad una,
+e il gruppo gestirà questa parte per noi. Il gruppo è in grado anche di effettuare update sulle sprite.
+Possiamo pensare al 'group' come una lista ottmizzata per gli sprite, e ne creeremo uno per ogni classe
+
+Se voglio assegnare direttamente ogni oggetto di una classe a un determinato gruppo, posso passare il gruppo all'__init__
+della super classe: super().__init__(group)
+
+Se nella classe definisco il metodo update, poi semplicemente chiamando il metodo update del gruppo, eseguo il metodo
+update di tutti gli oggetti nel gruppo
